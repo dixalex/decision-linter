@@ -1,0 +1,8 @@
+{
+  "name": "decision-linter",
+  "description": "Like ESLint for your thinking. Scores assumptions as Kind or Wicked, runs consider-the-opposite, surfaces blind spots. Outputs paste-ready judgment memos before consequential decisions.",
+  "author": {
+    "name": "Alexander Tinyaev",
+    "email": "dix.alex@gmail.com"
+  }
+}
