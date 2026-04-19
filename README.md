@@ -1,5 +1,9 @@
 # Decision Linter
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-6366f1.svg)](https://github.com/anthropics/claude-code)
+[![GitHub stars](https://img.shields.io/github/stars/dixalex/decision-linter?style=social)](https://github.com/dixalex/decision-linter/stargazers)
+
 **Like ESLint for your thinking.** A 2-minute judgment check before consequential decisions.
 
 > *"I already know the answer"* is the red flag, not the green light.
