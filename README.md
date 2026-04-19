@@ -2,8 +2,7 @@
 
 **Like ESLint for your thinking.** A 2-minute judgment check before consequential decisions.
 
-> *"$15K for three simultaneous migrations of a production e-commerce platform is not a budget — it's a deposit."*
-> — Decision Linter output on a Q3 plan
+> *"I already know the answer"* is the red flag, not the green light.
 
 ## Who this is for
 
@@ -26,7 +25,7 @@
 
 Then:
 ```
-/decision-linter should we rewrite our API in Rust?
+/decision-linter should I add a free tier to grow faster?
 ```
 
 Or describe any decision naturally — it auto-triggers when it detects high-stakes, low-reversibility choices.
@@ -41,67 +40,64 @@ Or describe any decision naturally — it auto-triggers when it detects high-sta
 
 ## Examples
 
+### "Should I add a free tier?"
+
+> I'm a solo founder with a SaaS at $29/month. 80 paying customers. Growth stalled at ~5 new/month. Considering a free tier to get more users into the funnel. My competitor just launched a free plan.
+
+**Output:**
+
+> **Environment:** WICKED (9/25)
+> Competitor pressure + stalled growth feel urgent and obvious. They aren't.
+>
+> **Key assumption:** Growth stalled because of a top-of-funnel volume problem — more users in = more paid out.
+>
+> **If wrong:** Growth stalled because of activation or retention. Free users flood support, dilute your ICP signal, and you spend 6 months optimizing a funnel that was never the bottleneck.
+>
+> **Counter-case:** Your conversion rate from current trials might already be low — more volume through a leaky funnel produces more churn, not more revenue. The competitor launching free doesn't mean it worked for them; it means they made a bet you're now copying without their data.
+>
+> **Missing:** Why 5/month? Reach problem (not enough finding you) or conviction problem (finding you but not converting)? Base rate: median B2B freemium conversion is 2-5%. At 5 new paid/month, you need 100-250 free users/month to hold the same rate.
+>
+> **Verdict:** PAUSE — Before committing: (1) Diagnose the stall — reach or conviction? Pull funnel drop-off data. (2) Talk to 5 churned or non-converting prospects. (3) If it's reach, also consider price test, content, or outbound before adding free-tier complexity.
+
+---
+
 ### "Rewrite our Node.js API in Rust"
 
-> Our Node.js API handles 2,000 req/s. The team wants to rewrite it in Rust for better performance. We have 4 engineers, none with Rust experience. Timeline: 3 months.
+> Our API handles 2,000 req/s. Team wants to rewrite in Rust for performance. 4 engineers, none with Rust experience. Timeline: 3 months.
 
 **Output:**
 
 > **Environment:** WICKED (8/25)
 >
-> **Key assumption:** 4 engineers with zero Rust experience can reach production-quality proficiency within 3 months while delivering a correct, performant rewrite of a 2,000 req/s system.
+> **Key assumption:** 4 engineers with zero Rust experience can reach production-quality proficiency within 3 months while rewriting a 2,000 req/s system.
 >
-> **If wrong:** The rewrite ships late or not at all. The Node.js system sits unmaintained during the rewrite window. The team ships something that performs worse than Node.js because they don't yet know how to write idiomatic Rust.
+> **If wrong:** The rewrite ships late or not at all. The Node.js system sits unmaintained. The team ships something that performs worse because they don't yet know idiomatic Rust.
 >
-> **Counter-case:** 2,000 req/s is not a performance problem. Node.js handles 10,000+ req/s trivially for I/O-bound workloads. If the bottleneck is real, it's almost certainly in the database, external calls, or architecture — not the runtime. Rust won't fix a slow query.
+> **Counter-case:** 2,000 req/s is not a performance problem. Node.js handles 10,000+ trivially for I/O-bound workloads. The bottleneck is almost certainly in the database or architecture — not the runtime. Rust won't fix a slow query.
 >
-> **Missing:** Profiling data showing where the actual bottleneck is. Base rate on team rewrites (Joel Spolsky's "Things You Should Never Do"). What happens to the Node.js system during the 3-month rewrite window.
+> **Missing:** Profiling data showing where the actual bottleneck is. Base rate on rewrites (Joel Spolsky's "Things You Should Never Do").
 >
-> **Irrelevant noise:** "Rust is faster than Node" — true in benchmarks, irrelevant without proof the runtime is the bottleneck. Team excitement about learning Rust (emotionally salient, not a business case).
->
-> **Verdict:** PAUSE — Before committing: (1) Profile the current system. (2) Define what "better performance" means — what metric, what target. (3) If Rust is still the answer, pilot on one isolated service, not a full rewrite.
+> **Verdict:** PAUSE — Profile first. Define "better performance" as a metric. If Rust is still the answer, pilot on one isolated service.
 
 ---
 
-### "Launch MVP without tests — app handles payments"
+### "Client wants a full rebuild in 6 weeks"
 
-> We're launching our MVP on Monday. We have no automated tests. The founder says "we'll add tests after launch." The app handles user payments.
+> Client wants us to rebuild their legacy PHP app as React + Node. Budget: $48K (6 weeks at $8K/week). Current app works but is slow. Their 2-dev team maintains it after handoff. They want all existing features.
 
 **Output:**
 
-> **Environment:** WICKED (7/25)
+> **Environment:** WICKED (9/25)
 >
-> **Key assumption:** The payment flows work correctly and will continue to work correctly after future changes, without any automated verification.
+> **Key assumption:** All existing features can be replicated in React + Node in 6 weeks by your team, then maintained by their 2 developers.
 >
-> **If wrong:** A user gets double-charged, a payment goes through without fulfillment, a refund path is broken. At minimum: chargebacks and lost trust. At worst: regulatory exposure, account suspension by the payment processor.
+> **If wrong:** Week 6 delivery is a partial port. Client accepts because they've paid $48K. Their devs inherit an incomplete React app AND still have the PHP system. You've created two systems to maintain instead of one.
 >
-> **Counter-case:** "Moving fast" is not free in payment systems — it transfers the cost to users. Stripe holds merchants liable for disputed charges. "Add tests after launch" has a near-zero completion rate in practice: post-launch pressure to add features is always higher than the pressure to test what already appears to work.
+> **Counter-case:** "Keep all existing features" is the scope commitment most likely to kill this. Feature-complete rewrites nearly always exceed estimates by 50-100%. You're pricing as if you know the full scope. You don't.
 >
-> **Missing:** Base rate on "tests after launch" actually getting written (industry evidence is grim). Whether the payment processor has testing requirements that activate at launch volume.
+> **Missing:** What does "slow" actually mean? If it's DB queries or server config, a rewrite solves nothing. Can their 2 PHP devs maintain React + Node? If not, handoff creates a maintainability cliff.
 >
-> **Irrelevant noise:** "We need to move fast" — no one has calculated what a single payment incident costs vs. 2 days of writing happy-path integration tests. The MVP framing — payments are not an MVP feature that can be "good enough for now."
->
-> **Verdict:** PAUSE — Before committing: (1) Write integration tests for 2 paths only: successful payment + declined card. This is 4-8 hours, not a sprint. (2) If Monday is non-negotiable: launch to invite-only 5-10 users where you can monitor every transaction manually.
-
----
-
-### Multi-decision: "Q3 Plan" document dump
-
-> Q3 Plan: Switch from PostgreSQL to MongoDB because it's more flexible. Drop REST for GraphQL. Move from AWS to GCP because one engineer prefers it. Budget: $15K. Team: 3 developers.
-
-**Output — summary table first:**
-
-> | # | Decision | Score | Verdict | Key Risk |
-> |---|----------|-------|---------|----------|
-> | 1 | PostgreSQL → MongoDB | 8/25 | PAUSE | "More flexible" is not a problem statement |
-> | 2 | REST → GraphQL | 12/25 | PAUSE | 3-dev team absorbing N+1, caching complexity alongside two other migrations |
-> | 3 | AWS → GCP | 6/25 | PAUSE | Single engineer preference is not a migration rationale |
->
-> **Decision 1 — PostgreSQL → MongoDB:**
-> E-commerce has highly relational data: orders → line items → products → inventory → customers. MongoDB's document model forces denormalization (duplication, consistency risk). Before committing: write down the 3 specific problems PostgreSQL is causing today. If you can't name 3, this decision is being made on vibes.
->
-> **Decision 3 — AWS → GCP:**
-> Engineer preference is not a business rationale. This is the highest-stakes decision in the document with the weakest justification. $15K for three simultaneous migrations of a production e-commerce platform is not a budget — it's a deposit. Require a written technical case before proceeding.
+> **Verdict:** PAUSE — Scope a discovery sprint first. Confirm their team can maintain the new stack. Propose phased modernization over big-bang rewrite.
 
 ## Based on
 
