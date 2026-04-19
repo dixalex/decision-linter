@@ -1,28 +1,43 @@
 # Decision Linter
 
-Like ESLint for your thinking. A 2-minute judgment check before consequential decisions.
+**Like ESLint for your thinking.** A 2-minute judgment check before consequential decisions.
 
-## What it does
+> *"$15K for three simultaneous migrations of a production e-commerce platform is not a budget — it's a deposit."*
+> — Decision Linter output on a Q3 plan
 
-- Scores assumptions as **Kind** (trust gut) or **Wicked** (impose structure) on 5 dimensions
-- Runs **consider-the-opposite** — the only debiasing technique proven on experienced professionals
-- Surfaces blind spots: what's missing from your experience, what's irrelevant but feels important
-- Outputs a **paste-ready judgment memo** for PRs, Slack, proposals, or decision logs
-- Decomposes multi-decision documents into individual checks with a summary table
+## Who this is for
 
-## Install as Claude Code Plugin
+**Solo founders and indie hackers** — You're the CTO, PM, and designer. Every decision is yours. No one pushes back when your gut is wrong. This is your pushback.
+
+**Small team tech leads (2-8 engineers)** — You make architecture calls that won't show consequences for months. Your team trusts your judgment, which means your blind spots become the team's blind spots.
+
+**Agency founders and freelancers** — You scope projects, choose stacks, and commit timelines for clients. A bad call costs the client, then costs you the relationship.
+
+**Senior engineers moving into leadership** — You've been promoted for technical skills, but now the decisions are about people, products, and priorities — where engineering instincts can mislead you.
+
+**PMs and QAs making product bets** — Feature prioritization, scope decisions, shipping with known risks — judgment calls where data is always incomplete.
+
+## Quick Start
 
 ```
 /plugin marketplace add dixalex/decision-linter
 /plugin install decision-linter@decision-linter
 ```
 
-Then use it:
+Then:
 ```
 /decision-linter should we rewrite our API in Rust?
 ```
 
-Or just describe a decision naturally — it auto-triggers when it detects high-stakes, low-reversibility choices.
+Or describe any decision naturally — it auto-triggers when it detects high-stakes, low-reversibility choices.
+
+## What it does
+
+- **Scores assumptions** as Kind (trust gut) or Wicked (impose structure) on 5 dimensions
+- **Runs consider-the-opposite** — the only debiasing technique proven on experienced professionals
+- **Surfaces blind spots** — what's missing from your experience, what's irrelevant but feels important
+- **Outputs a paste-ready memo** for PRs, Slack, proposals, or decision logs
+- **Decomposes documents** — dump a spec or plan and it checks each decision independently
 
 ## Examples
 
@@ -88,25 +103,6 @@ Or just describe a decision naturally — it auto-triggers when it detects high-
 > **Decision 3 — AWS → GCP:**
 > Engineer preference is not a business rationale. This is the highest-stakes decision in the document with the weakest justification. $15K for three simultaneous migrations of a production e-commerce platform is not a budget — it's a deposit. Require a written technical case before proceeding.
 
-## Who this is for
-
-**Solo founders and indie hackers** — You're the CTO, PM, and designer. Every decision is yours. No one pushes back when your gut is wrong. This is your pushback. ("80% of new products fail — mostly due to poor decisions, not poor execution" — Harvard Business School)
-
-**Small team tech leads (2-8 engineers)** — You make architecture calls that won't show consequences for months. Your team trusts your judgment, which means your blind spots become the team's blind spots. The Rust rewrite, the microservices split, the framework migration — these are the decisions that kill small teams.
-
-**Agency founders and freelancers** — You scope projects, choose stacks, and commit timelines for clients. A bad call doesn't just cost you — it costs the client, and then costs you the relationship. Every proposal is a judgment call about what to build and what to skip.
-
-**Senior engineers moving into leadership** — You've been promoted because of your technical skills, but now the decisions are about people, products, and priorities — wicked environments where your engineering instincts can mislead you. Research shows years of experience don't predict judgment quality in these domains.
-
-**PMs and QAs making product bets** — Feature prioritization, scope decisions, shipping with known risks — these are judgment calls, not data calls. The data is always incomplete. The question is whether you've checked the assumptions hiding underneath.
-
-## When it triggers
-
-- Before architecture choices, technology selection, product direction
-- Before client proposals, estimates, pricing decisions
-- When you say "should I do this?", "check my assumptions", "sanity check this"
-- When you dump a spec or proposal for review
-
 ## Based on
 
-Cognitive science research: Kahneman-Klein (conditions for intuitive expertise), Hogarth (kind vs wicked environments), Tetlock (superforecasting), Morewedge (debiasing interventions).
+Cognitive science research: Kahneman-Klein (conditions for intuitive expertise), Hogarth (kind vs wicked environments), Tetlock (superforecasting), Morewedge (debiasing interventions). Poor decisions cost companies [$250M/year](https://www.newyorkbex.com/new-research-poor-decisions-cost-companies-250m-year) (Fortune 500) and [80% of new products fail](https://hbs.edu) mostly due to bad decisions, not bad execution.
