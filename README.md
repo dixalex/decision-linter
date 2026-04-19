@@ -30,6 +30,13 @@ Then:
 
 Or describe any decision naturally — it auto-triggers when it detects high-stakes, low-reversibility choices.
 
+## Uninstall
+
+```
+/plugin uninstall decision-linter@decision-linter
+/plugin marketplace remove dixalex/decision-linter
+```
+
 ## What it does
 
 - **Scores assumptions** as Kind (trust gut) or Wicked (impose structure) on 5 dimensions
